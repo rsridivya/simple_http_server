@@ -1,6 +1,5 @@
 package pkg.gannet.simple_http_server;
 
-import java.awt.Point;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;

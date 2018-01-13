@@ -1,3 +1,3 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-simple-http-server,pkg.gannet.simple_http_server,SimpleHTTPServer,3,20,0,0,1,5,1,1,1,1
-simple-http-server,pkg.gannet.simple_http_server,MyHandler,17,254,5,23,2,53,5,19,0,10
+simple_http_server,pkg.gannet.simple_http_server,SimpleHTTPServer,3,20,0,0,1,5,1,1,1,1
+simple_http_server,pkg.gannet.simple_http_server,MyHandler,65,206,7,21,14,41,8,16,1,9
