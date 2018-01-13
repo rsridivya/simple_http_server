@@ -26,7 +26,7 @@ class MyHandler implements HttpHandler {
   }
 	  
 	  static void processPath(String inputString){
-		  if(inputString==""){
+		  if(inputString.isEmpty()){
 			 finalString+="Hello World\n" ;
 		  }
 		  else if(inputString.equals("hello")){
