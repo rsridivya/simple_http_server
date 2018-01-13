@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MyHandler.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">simple-http-server</a> &gt; <a href="index.source.html" class="el_package">pkg.gannet.simple_http_server</a> &gt; <span class="el_source">MyHandler.java</span></div><h1>MyHandler.java</h1><pre class="source lang-java linenums">package pkg.gannet.simple_http_server;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+<span class="fc" id="L13">class MyHandler implements HttpHandler {</span>
+<span class="fc" id="L14">	private  static String finalString=&quot;&quot;;</span>
+	
+	  public void handle(HttpExchange exchange) throws IOException {
+<span class="fc" id="L17">		  finalString=&quot;&quot;;</span>
+<span class="fc" id="L18">		  String stringFromURL = exchange.getRequestURI().getPath();</span>
+<span class="fc" id="L19">		  String inputString = stringFromURL.substring(1,stringFromURL.length());</span>
+<span class="fc" id="L20">		  processParameters(parseQueryString(exchange.getRequestURI().getQuery()),inputString);</span>
+<span class="fc" id="L21">		  String response = finalString;</span>
+<span class="fc" id="L22">	      exchange.sendResponseHeaders(200, response.length());</span>
+<span class="fc" id="L23">	      OutputStream os = exchange.getResponseBody();</span>
+<span class="fc" id="L24">	      os.write(response.getBytes());</span>
+<span class="fc" id="L25">	      os.close();</span>
+<span class="fc" id="L26">  }</span>
+	  
+	  static void processPath(String inputString){
+<span class="fc bfc" id="L29" title="All 2 branches covered.">		  if(inputString==&quot;&quot;){</span>
+<span class="fc" id="L30">			 finalString+=&quot;Hello World\n&quot; ;</span>
+<span class="fc" id="L31">		  }</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">		  else if(inputString.equals(&quot;hello&quot;)){</span>
+<span class="fc" id="L33">			  finalString+=&quot;Hello\n&quot;;</span>
+<span class="fc" id="L34">		  }</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">		  else if(inputString.equals(&quot;world&quot;)){</span>
+<span class="fc" id="L36">			  finalString+=&quot;World\n&quot;;</span>
+<span class="fc" id="L37">		  }</span>
+		  else{
+<span class="fc" id="L39">			  finalString+=&quot;Invalid Request\n&quot;;</span>
+		  }
+<span class="fc" id="L41">	  }</span>
+	  
+	  static String reverseString(String input){
+<span class="fc" id="L44">		  return new StringBuilder(input).reverse().toString();</span>
+	  }
+	  
+	  private static String uppercaseString(String input){
+<span class="fc" id="L48">		  return input.toUpperCase();</span>
+	  }
+	  
+	  static void processParameters(Map&lt;String,String&gt; paramsMap, String inputString){
+<span class="fc" id="L52">		  processPath(inputString);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		  if(paramsMap.containsKey(&quot;uppercase&quot;)){</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">			  if(Boolean.valueOf(paramsMap.get(&quot;uppercase&quot;).toLowerCase())){</span>
+<span class="fc" id="L55">				  finalString+= &quot;Converting &quot;+inputString+&quot; to Uppercase: &quot;+uppercaseString(inputString)+&quot;\n&quot;;</span>
+			  }
+		  }
+<span class="fc bfc" id="L58" title="All 2 branches covered.">		  if(paramsMap.containsKey(&quot;reverse&quot;)){</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">			  if(Boolean.valueOf(paramsMap.get(&quot;reverse&quot;).toLowerCase())){</span>
+<span class="fc" id="L60">				  finalString+= &quot;Reversing &quot;+inputString+&quot; :&quot;+reverseString(inputString)+&quot;\n&quot;;</span>
+			  }
+		  }
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		  if(paramsMap.isEmpty()){</span>
+<span class="fc" id="L64">			  finalString+=&quot;No Query Parameters Provided&quot;;</span>
+		  }
+<span class="fc" id="L66">	  }</span>
+	  
+	  String getFinalString(){
+<span class="fc" id="L69">		  return finalString;</span>
+	  }
+	  
+	  public static Map&lt;String, String&gt; parseQueryString(String qs) {
+<span class="fc" id="L73">		    Map&lt;String, String&gt; result = new HashMap&lt;String,String&gt;();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		    if (qs == null)</span>
+<span class="fc" id="L75">		        return result;</span>
+
+<span class="fc" id="L77">		    int last = 0, next, l = qs.length();</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		    while (last &lt; l) {</span>
+<span class="fc" id="L79">		        next = qs.indexOf('&amp;', last);</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		        if (next == -1)</span>
+<span class="fc" id="L81">		            next = l;</span>
+
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">		        if (next &gt; last) {</span>
+<span class="fc" id="L84">		            int eqPos = qs.indexOf('=', last);</span>
+		            try {
+<span class="pc bpc" id="L86" title="2 of 4 branches missed.">		                if (eqPos &lt; 0 || eqPos &gt; next)</span>
+<span class="nc" id="L87">		                    result.put(URLDecoder.decode(qs.substring(last, next), &quot;utf-8&quot;), &quot;&quot;);</span>
+		                else
+<span class="fc" id="L89">		                    result.put(URLDecoder.decode(qs.substring(last, eqPos), &quot;utf-8&quot;), URLDecoder.decode(qs.substring(eqPos + 1, next), &quot;utf-8&quot;));</span>
+<span class="pc" id="L90">		            } catch (UnsupportedEncodingException e) {</span>
+<span class="nc" id="L91">		                throw new RuntimeException(e); // will never happen, utf-8 support is mandatory for java</span>
+		            }
+		        }
+<span class="fc" id="L94">		        last = next + 1;</span>
+		    }
+<span class="fc" id="L96">		    return result;</span>
+		}
+
+	public static void setFinalString(String string) {
+<span class="fc" id="L100">			finalString=string;</span>
+<span class="fc" id="L101">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
