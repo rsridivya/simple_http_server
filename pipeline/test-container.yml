@@ -1,0 +1,32 @@
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: amidos/dcind}
+      run:
+        path: /bin/sh
+        args:
+        - -xec
+        - |
+          source /docker-lib.sh
+          start_docker
+          curl -L https://raw.githubusercontent.com/aelsabbahy/goss/master/extras/dgoss/dgoss -o /usr/local/bin/dgoss
+          chmod +rx /usr/local/bin/dgoss
+          mkdir ~/Downloads
+          curl -L https://github.com/aelsabbahy/goss/releases/download/v0.3.5/goss-linux-amd64 -o ~/Downloads/goss-linux-amd64
+          export GOSS_PATH=~/Downloads/goss-linux-amd64
+          echo "              port:
+                                    tcp:8090:
+                                    listening: false
+                                    ip: []
+                              process:
+                                    hello:
+                                    running: true
+                              http:
+                                    http://localhost:8090:
+                                    status: 200
+                                    allow-insecure: false
+                                    no-follow-redirects: false
+                                    timeout: 5000
+                                    body: []" > goss.yaml
+          cat goss.yaml
+          sh /usr/local/bin/dgoss run -p 8090:8090 "rsridivya/gannet_exercise" hello
