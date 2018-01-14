@@ -15,7 +15,7 @@ inputs:
 
 run:
   path: sh
-        args:
-        - -exc
-        - |
-          mvn install
+  args:
+      - -exc
+      - |
+        mvn install
