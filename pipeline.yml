@@ -19,4 +19,4 @@ jobs:
       - get: time
     - task: maven-install
       privileged: true
-      file: git-repo/pipeline/maven-install.yml
+      file: git-repo/pipeline/maven-pipeline.yml

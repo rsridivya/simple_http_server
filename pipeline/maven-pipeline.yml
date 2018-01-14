@@ -14,5 +14,8 @@ inputs:
 #    path: git-repo/target/
 
 run:
-  path: mvn
-  args: ["-f", "git-repo/pom.xml", "", "install"]
+  path: sh
+        args:
+        - -exc
+        - |
+          mvn install
