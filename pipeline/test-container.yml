@@ -15,18 +15,18 @@
           curl -L https://github.com/aelsabbahy/goss/releases/download/v0.3.5/goss-linux-amd64 -o ~/Downloads/goss-linux-amd64
           export GOSS_PATH=~/Downloads/goss-linux-amd64
           echo "              port:
-                                    tcp:8090:
+                                    tcp:8004:
                                     listening: false
                                     ip: []
                               process:
                                     hello:
                                     running: true
                               http:
-                                    http://localhost:8090:
+                                    http://localhost:8004:
                                     status: 200
                                     allow-insecure: false
                                     no-follow-redirects: false
                                     timeout: 5000
                                     body: []" > goss.yaml
           cat goss.yaml
-          sh /usr/local/bin/dgoss run -p 8090:8090 "rsridivya/gannet_exercise" hello
+          sh /usr/local/bin/dgoss run -p 8004:8004 "rsridivya/gannet_exercise" hello
