@@ -1,0 +1,22 @@
+resources:
+  - name: git-repo
+    type: git
+    source:
+      uri: https://github.com/rsridivya/simple_http_server.git
+      branch: master
+  - name: time
+    type: time
+    source:
+      interval: 60s
+
+
+jobs:
+  - name: maven-install
+    plan:
+    - aggregate:
+      - get: git-repo
+        trigger: true
+      - get: time
+    - task: maven-install
+      privileged: true
+      file: git-repo/pipeline/maven-install.yml
