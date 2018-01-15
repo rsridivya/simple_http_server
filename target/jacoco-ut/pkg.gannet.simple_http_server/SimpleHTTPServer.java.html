@@ -15,13 +15,14 @@ import com.sun.net.httpserver.HttpServer;
 /*
  * a simple static http server
 */
-<span class="nc" id="L18">public class SimpleHTTPServer {</span>
+<span class="fc" id="L18">public class SimpleHTTPServer {</span>
 
   public static void main(String[] args) throws Exception {
 <span class="fc" id="L21">    HttpServer server = HttpServer.create(new InetSocketAddress(8004), 0);</span>
-<span class="fc" id="L22">    server.createContext(&quot;/&quot;, new MyHandler());</span>
-<span class="fc" id="L23">    server.setExecutor(null); // creates a default executor</span>
-<span class="fc" id="L24">    server.start();</span>
-<span class="fc" id="L25">  }</span>
+<span class="fc" id="L22">    System.out.println(&quot;Server Started\n&quot;);</span>
+<span class="fc" id="L23">    server.createContext(&quot;/&quot;, new MyHandler());</span>
+<span class="fc" id="L24">    server.setExecutor(null); // creates a default executor</span>
+<span class="fc" id="L25">    server.start();</span>
+<span class="fc" id="L26">  }</span>
   }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

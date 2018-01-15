@@ -19,6 +19,7 @@ public class SimpleHTTPServer {
 
   public static void main(String[] args) throws Exception {
     HttpServer server = HttpServer.create(new InetSocketAddress(8004), 0);
+    System.out.println("Server Started\n");
     server.createContext("/", new MyHandler());
     server.setExecutor(null); // creates a default executor
     server.start();

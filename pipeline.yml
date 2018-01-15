@@ -20,11 +20,12 @@ jobs:
     - task: maven-install
       privileged: true
       file: git-repo/pipeline/maven-pipeline.yml
+  
   - name: test-container
-  plan: 
-  - aggregate: 
-    - get: git-repo
-      trigger: true
-  - task: test-container
-    privileged: true
-    file: git-repo/pipeline/test-container.yml
+    plan: 
+    - aggregate: 
+      - get: git-repo
+        trigger: true
+    - task: test-container
+      privileged: true
+      file: git-repo/pipeline/test-container.yml
