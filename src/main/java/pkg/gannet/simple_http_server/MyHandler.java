@@ -14,15 +14,15 @@ class MyHandler implements HttpHandler {
 	private  static String finalString="";
 	
 	  public void handle(HttpExchange exchange) throws IOException {
-		  finalString="";
-		  String stringFromURL = exchange.getRequestURI().getPath();
-		  String inputString = stringFromURL.substring(1,stringFromURL.length());
-		  processParameters(parseQueryString(exchange.getRequestURI().getQuery()),inputString);
-		  String response = finalString;
-	      exchange.sendResponseHeaders(200, response.length());
-	      OutputStream os = exchange.getResponseBody();
-	      os.write(response.getBytes());
-	      os.close();
+		finalString="";
+		String stringFromURL = exchange.getRequestURI().getPath();
+		String inputString = stringFromURL.substring(1,stringFromURL.length());
+		processParameters(parseQueryString(exchange.getRequestURI().getQuery()),inputString);
+		String response = finalString;
+		exchange.sendResponseHeaders(200, response.length());
+		OutputStream os = exchange.getResponseBody();
+		os.write(response.getBytes());
+		os.close();
   }
 	  
 	  static void processPath(String inputString){
