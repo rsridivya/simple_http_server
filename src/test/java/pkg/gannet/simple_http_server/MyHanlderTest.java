@@ -20,8 +20,6 @@ import static org.mockito.Mockito.mock;
 
 import com.sun.net.httpserver.HttpExchange;
 
-//@RunWith(PowerMockRunner.class)
-//@PrepareForTest(MyHandler.class)
 public class MyHanlderTest {
 	
 	@Test
@@ -76,27 +74,10 @@ public class MyHanlderTest {
 	}
 	
 	@Test
-	public void checkParseQueryStringReturnCorrectMapIfParamsEmpty(){
-		MyHandler server = new MyHandler();
-		server.setFinalString("");
-		Assert.assertEquals("{}",server.parseQueryString("").toString());
-	}
-	
-	@Test
-	public void checkParseQueryStringReturnCorrectMapIfNull(){
-		MyHandler server = new MyHandler();
-		server.setFinalString(null);
-		Assert.assertEquals("{}",server.parseQueryString("").toString());
-	}
-	
-	@Test
 	public void checkParseQueryStringReturnCorrectMapIfInvalidQueryString(){
 		MyHandler server = new MyHandler();
-		server.setFinalString("&");
-		Assert.assertEquals("{}",server.parseQueryString("").toString());
+		Assert.assertEquals("{uppercase=}",server.parseQueryString("uppercase&").toString());
 	}
-	
-	
 	
 	@Test
 	public void testhandlehasFinalString() throws Exception{
