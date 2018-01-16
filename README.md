@@ -19,6 +19,11 @@ This will run the application. you can go to the browser and enter the url: http
 You can find a docker container which run this web app: https://hub.docker.com/r/rsridivya/java-web-app-docker/
 The repo description has instructions to how to run it. 
 
+To Run Concourse CI Pipeline : 
+
+Clone the repo: git clone https://github.com/rsridivya/simple_http_server.git
+cd simple_http_server
+
 Running the pipeline:
 fly -t lite set-pipeline -c pipeline.yml  -p web-app
 
